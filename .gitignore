@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+# xlsx extras
+*.~lock.FINAL450.xlsx#
