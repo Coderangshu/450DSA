@@ -31,5 +31,6 @@
 *.out
 *.app
 
-# xlsx extras
+# extras
 *.~lock.FINAL450.xlsx#
+.fuse*
