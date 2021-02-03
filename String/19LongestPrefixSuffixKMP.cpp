@@ -19,32 +19,39 @@ public:
 	{
 	    // Your code goes here
 	    int n = s.length();
-	    int a[n];
-	    a[0] = 0;
+	    int lps[n];
+	    // LPS stores the longest possible subsequence of the 
+	    // pattern.
+	    // We create the LPS array first
+	    lps[0] = 0;
 	    int i=0,j=1;
 	    // j keeps on increasing throughout the traversal,
 	    // but i keeps jumping according to the conditions.
+	    // Here j is the pointer to the text and i to the 
+	    // pattern.
 	    while(j<n){
 		// If ith and jth term are equal then both pointer
 		// incremented. The value of ith pointer+1 is stored
-		// at the jth index of the array.
-	        if(s[i]==s[j]) a[j++] = ++i;
+		// at the jth index of the array. Signifying that an
+		// prefix is common to the suffix of length i+1 in the
+		// jth index
+	        if(s[i]==s[j]) lps[j++] = ++i;
 		// If i is not equal to 0 then i is updated to the
-		// value stored in j's previous index, this means
+		// value stored in i's previous index, this means
 		// that as the current ith and jth terms did not
 		// match so i is sent back to the index where the 
-		// last of j's index has seen the longest suffix array.
+		// last of i's index has seen the longest suffix array.
 		// If i reaches 0 this means that the current character
 		// at jth index is not a part of the longest suffix found
 		// yet, so it stores 0 at the jth index.
 	        else{
-	            if(i!=0) i = a[i-1];
-	            else a[j++] = 0;
+	            if(i!=0) i = lps[i-1];
+	            else lps[j++] = 0;
 	        }
 	    }
-	    for(int i=0;i<n;i++) cout<<a[i]<<" ";
+	    for(int i=0;i<n;i++) cout<<lps[i]<<" ";
 	    cout<<endl;
-	   return a[n-1];
+	   return lps[n-1];
 	}
 };
 
