@@ -62,9 +62,14 @@ class Solution{
     Node * mergeKLists(Node *arr[], int K)
     {
            // Your code here
+        
+           // Here we recursively merge from first
+           // to last. f is the first and s is the
+           // second linked list from array arr
+           
            if(K==1) return arr[0];
            Node *f = mergeKLists(arr,K-1);
-           Node *s = merge(arr[K-1],f);
+           Node *s = merge(f,arr[K-1]);
            return s;
     }
 };

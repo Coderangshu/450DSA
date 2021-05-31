@@ -1,0 +1,2 @@
+Same as 9leetcodeReorganizeString.cpp
+same question same solution
