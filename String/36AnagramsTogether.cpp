@@ -38,6 +38,37 @@ vector<vector<string> > Anagrams(vector<string>& string_list)
 }
 
 
+// Using better hash map (T(n) = O(nk)) 
+vector<vector<string>> Anagrams(vector<string>& string_list) 
+{
+    // This is the implementation using the frequency map of each word
+    // as the hash value to and store the words in the outer maps
+    // corresponding vector thus separating the anagrams
+    map<map<char,int>,vector<string>> mapOfHashMap;
+    
+    // store all wordsin mapOfHashMap
+    for(auto word:string_list){
+        // map to store the frequency of each word's letters
+        map<char,int> tempMp;
+        
+        // Counting the frequency of the characters present in a string
+        for(int i=0;i<word.length();i++) tempMp[word[i]]++;
+        
+        // If the same frequency of chanracters are alraedy present then 
+        // add that string into that arraylist otherwise
+        // created a new arraylist and add that string
+        if(mapOfHashMap.find(tempMp)!=mapOfHashMap.end()) 
+            mapOfHashMap[tempMp].push_back(word);
+        else
+            mapOfHashMap.insert({tempMp,vector<string> (1,word)});
+    }
+    
+    // put ans in vector of vector
+    vector<vector<string>> ans;
+    for(auto e:mapOfHashMap) ans.push_back(e.second);
+    return ans;
+}
+
 // { Driver Code Starts.
 
 int main()
