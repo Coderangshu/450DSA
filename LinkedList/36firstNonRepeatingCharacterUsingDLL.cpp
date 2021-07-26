@@ -41,6 +41,26 @@ class Solution {
             delete (temp);
         }
 	    
+
+	    // The method used is we maintain 2 arrays inDLL and repeated
+	    // both are of length 26(i.e. number of engilish alphabets)
+	    // inDLL holds the address of the DLL node in which that index
+	    // character is stored, and in repeated the index stores if
+	    // a char has been repeated or not.
+	    // A char is said to be repeated when obtained twice or more
+
+	    // when repeated is false and inDLL of a char is NULL we know
+	    // that this is the 1st time of a char, thus insert a DLL node
+	    // of it in the DLL and put the address of the node in the inDLL
+	    // when came across the char the 2nd time mark repeated as true,
+	    // remove the node from DLL and make inDLL of that char as NULL.
+
+	    // Now, at the end of an iteration we append to the answer the
+	    // DLL's head's char as the head of the DLL will always be the
+	    // 1st non repeating char upto that point, and if head is NULL
+	    // then we no there's no repeating char thus append a '#'.
+
+
 		string FirstNonRepeating(string A){
 		    // Code here
 		    struct node* inDLL[26] = {NULL};
