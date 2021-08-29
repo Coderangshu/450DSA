@@ -36,7 +36,7 @@ class Solution
     }
     
     //Function to find a solved Sudoku. 
-    bool SolveSudoku(int grid[N][N])  
+    bool SolveSudokuI(int grid[N][N])
     { 
         // Your code here
         
@@ -58,7 +58,7 @@ class Solution
                             // filled thus we return true fir this
                             // number and go to the previous recursion
                             // call that was made before this
-                            if(SolveSudoku(grid)) return true;
+                            if(SolveSudokuI(grid)) return true;
                             // if returned false means this number isn't
                             // suitable in this cell, thus we backtrack
                             // by reseting this cell and going on with iteration
@@ -76,6 +76,32 @@ class Solution
         return true;
     }
     
+    // a faster approach then above
+    // Instead of starting from beginning for each iteration
+    // start from the next col in that row, this optimizes the
+    // recursive function a lot
+    bool SolveSudoku(int board[N][N], int row=0, int col=0){
+        for(int i=row;i<9;i++){
+            for(int j=col;j<9;j++){
+                if(board[i][j]==0){
+                    for(char k=1;k<=9;k++){
+                        if(isValid(board,i,j,k)){
+                            board[i][j] = k;
+                            if(SolveSudoku(board,i,j+1)) return true;
+                            board[i][j] = 0;
+                        }
+                    }
+                    return false;
+                }
+            }
+            // after the end of the col from
+            // where started col needs to be
+            // reset to 0 after each row is checked
+            col = 0;
+        }
+        return true;
+    }
+
     //Function to print grids of the Sudoku.
     void printGrid (int grid[N][N]) 
     {
@@ -86,7 +112,7 @@ class Solution
         // in it, we just simply print the filled sudoku puzzle
         for(int i=0;i<N;i++){
             for(int j=0;j<N;j++) cout<<grid[i][j]<<" ";
-            // cout<<endl;
+            cout<<endl;
         }
     }
 };
@@ -106,7 +132,7 @@ int main() {
 		        
 		Solution ob;
 		
-		if (ob.SolveSudoku(grid) == true)  
+		if (ob.SolveSudoku(grid) == true)
             ob.printGrid(grid);  
         else
             cout << "No solution exists";  

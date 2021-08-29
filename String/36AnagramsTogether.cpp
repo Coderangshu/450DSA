@@ -24,6 +24,7 @@ vector<vector<string> > Anagrams(vector<string>& string_list)
     // total time complexity is O(nKlogK), we can decrease this to
     // O(nK) by not sorting the strings but creating a has value
     // out of it and using that as the key.
+    // TC : O(n*nlogn) 
     int n = string_list.size();
     unordered_map <string,vector<string>> mp;
     for(int i=0;i<n;i++){
@@ -38,35 +39,37 @@ vector<vector<string> > Anagrams(vector<string>& string_list)
 }
 
 
-// Using better hash map (T(n) = O(nk)) 
+
+
+
+
+// Method 2:
+// Using better hash map (T(n) = O(n*26)) 
+
+// function to get the hash key for each string
+string getHash(string s){
+        vector<int> arr(26,0);
+        for(auto c:s){
+            int e = c-'a';
+            arr[e]++;
+        }
+        string ans = "";
+        for(auto e:arr) ans += to_string(e)+" ";
+        return ans;
+    }
+
 vector<vector<string>> Anagrams(vector<string>& string_list) 
 {
-    // This is the implementation using the frequency map of each word
-    // as the hash value to and store the words in the outer maps
-    // corresponding vector thus separating the anagrams
-    map<map<char,int>,vector<string>> mapOfHashMap;
-    
-    // store all wordsin mapOfHashMap
-    for(auto word:string_list){
-        // map to store the frequency of each word's letters
-        map<char,int> tempMp;
-        
-        // Counting the frequency of the characters present in a string
-        for(int i=0;i<word.length();i++) tempMp[word[i]]++;
-        
-        // If the same frequency of chanracters are alraedy present then 
-        // add that string into that arraylist otherwise
-        // created a new arraylist and add that string
-        if(mapOfHashMap.find(tempMp)!=mapOfHashMap.end()) 
-            mapOfHashMap[tempMp].push_back(word);
-        else
-            mapOfHashMap.insert({tempMp,vector<string> (1,word)});
-    }
-    
-    // put ans in vector of vector
-    vector<vector<string>> ans;
-    for(auto e:mapOfHashMap) ans.push_back(e.second);
-    return ans;
+    // creating hashmap with the hash key being the frequency
+    // string representation of vector of all 26 chars with space
+    unordered_map<string,vector<string>> um;
+        vector<vector<string>> ans;
+        for(auto e:strs){
+            string hash = getHash(e);
+            um[hash].push_back(e);
+        }
+        for(auto [_,vecs]:um) ans.push_back(vecs);
+        return ans;
 }
 
 // { Driver Code Starts.
