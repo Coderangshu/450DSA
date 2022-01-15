@@ -72,7 +72,7 @@ struct Node {
 unordered_map<string,int> subtrees;
 
 // This is the function used in 24duplicateSubtreeInBT
-// the difference only being here the leadf nodes are
+// the difference only being here the leaf nodes are
 // also included as subtrees thus string length >=3 is
 // accepted instead of only >3
 // the second difference is now as we need to print the

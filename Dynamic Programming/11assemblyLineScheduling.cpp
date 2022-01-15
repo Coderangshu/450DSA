@@ -22,7 +22,7 @@ int minTime(vector<int> a[], vector<int> t[], vector<int> e, vector<int> x){
 		// is no option for both assembly lines
 		if(i==0){
 			tm1[i] = e[0]+a[0][i];
-			tm2[i] = e[1]+a[0][i];
+			tm2[i] = e[1]+a[1][i];
 		}
 		// for the rest we have choice either chasis comes from
 		// line 1 or 2 we take the minimum time of the both

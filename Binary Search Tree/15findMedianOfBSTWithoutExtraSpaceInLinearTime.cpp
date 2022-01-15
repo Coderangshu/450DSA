@@ -196,11 +196,11 @@ int main()
 {
 
 	/* Let us create following BST
-				50
-			/	 \
-			30	 70
-			/ \ / \
-		20 40 60 80 */
+			  50
+			 /	 \
+		  30	 70
+		 /   \   / \
+		20 40  60  80 */
 	struct Node *root = NULL;
 	root = insert(root, 50);
 	insert(root, 30);
@@ -210,8 +210,8 @@ int main()
 	insert(root, 60);
 	insert(root, 80);
 
-	cout << "\nMedian of BST is "
-		<< findMedian(root);
+	cout<<counNodes(root)<<endl;
+	// cout << "\nMedian of BST is "<< findMedian(root);
 	return 0;
 }
 

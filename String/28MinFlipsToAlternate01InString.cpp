@@ -9,18 +9,16 @@ int main()
 	while(t--){
 	    string s;
 	    cin>>s;
-	    int start0 = 0, start1 = 0;
-	    for(int i=0;i<s.length();i++){
-	        if(i%2==0){
-	            if(s[i]=='0') start1++;
-	            else start0++;
-	        }
-	        else{
-	            if(s[i]=='1') start1++;
-	            else start0++;
-	        }
+	    int ans = 0, n = s.length();
+		// considering the first character as 0
+		// finding the # of flips
+	    for(int i=0;i<n;i++){
+	        if(i%2==0 and s[i]=='1') ans++;
+	        if(i%2==1 and s[i]=='0') ans++;
 	    }
-	    cout<<min(start0,start1)<<endl;
+		// returning the min of when first character is
+		// 0 and when first character is 1
+	    cout<<min(ans,n-ans)<<endl;
 	}
 	return 0;
 }

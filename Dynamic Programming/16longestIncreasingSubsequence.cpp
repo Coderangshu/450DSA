@@ -53,13 +53,14 @@ public:
     // Time = O(N^log(N)) Space = O(N) 
     
     
-    int binarySearcher(vector<int> k, int l, int r, int val){
-        while (r - l > 1) {
-            int m = l + (r - l) / 2;
+    int binarySearcher(vector<int> k, int r, int val){
+        int l = 0;
+        while (l<r) {
+            int m = (l+r)>>1;
             if (k[m] >= val)
                 r = m;
             else
-                l = m;
+                l = m+1;
         }
         return r;
     }
@@ -85,7 +86,7 @@ public:
             else if(a[i]>k[length-1]) k[length++] = a[i];
             
             // else if in between we search location and replace
-            else k[binarySearcher(k,-1,length-1,a[i])] = a[i];
+            else k[binarySearcher(k,length-1,a[i])] = a[i];
         }
         
         // NOTE: k doesn't contain the actual increasing subsequence

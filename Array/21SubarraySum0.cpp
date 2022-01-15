@@ -32,12 +32,12 @@ bool subArrayExists(int arr[], int n)
 {
     //Your code here
     int sum = 0;
-    map<int,int> m;
+    unordered_map<int,int> m;
     for(int i=0;i<n;i++){
         sum += arr[i];
-	if(sum==0) return true;
+		if(sum==0) return true;
         m[sum]++;
-	if(m[sum]>1) return true;
+		if(m[sum]>1) return true;
     }
     return false;
 }

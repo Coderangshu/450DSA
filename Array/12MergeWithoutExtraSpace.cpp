@@ -8,10 +8,32 @@ using namespace std;
 
 #include <bits/stdc++.h>
 
-//User function template for C++
-class Solution{
+class Solution {
 public:
-	void merge(int arr1[], int arr2[], int n, int m) {
+    void insertionSort(vector<int> &v){
+        int n = v.size();
+        for(int i=0;i<n-1;i++){
+            if(v[i]>v[i+1]) swap(v[i],v[i+1]);
+        }
+    }
+    
+    // insertion sort method
+    // TC = O(n*m)
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        if(n==0) return;
+        for(int i=0;i<m;i++){
+            if(nums1[i]>nums2[0]) swap(nums1[i],nums2[0]);
+            insertionSort(nums2);
+        }
+        
+        // to store the complete answer in nums1
+        for(int i=m;i<nums1.size();i++){
+            nums1[i] = nums2[i-m];
+        }
+    }
+
+    // Gap method
+    void mergeGap(int arr1[], int arr2[], int n, int m) {
 	    // code here
 	    int gap = ceil((m+n)/2.0);
 	    do{
@@ -25,6 +47,7 @@ public:
 	        gap = (gap/2==0)?0:int(ceil(gap/2.0));
 	    }while(gap>0);
 	}
+
 };
 
 

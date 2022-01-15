@@ -52,6 +52,19 @@ Node* kthAncestorDFS(Node *root, int node , int &k, Node* &ans)
 	return NULL;
 }
 
+// same as above
+Node* kthAncestorDFS1(Node *root, int node , int &k, Node* &ans){
+	if(!root) return nullptr;
+	if(root->data == node or kthAncestorDFS1(root->left,node,k,ans) or kthAncestorDFS1(root->right,node,k,ans)){
+		if(k>0) k--;
+		else{
+			ans = root;
+			return nullptr;
+		}
+		return root;
+	}
+}
+
 // Utility function to create a new tree node
 Node* newNode(int data)
 {
@@ -82,7 +95,8 @@ int main()
     // return NULL
     // parent will return a node only if k is larger
     // than ancestors available
-	Node* parent = kthAncestorDFS(root,node,k,ans);
+	// Node* parent = kthAncestorDFS(root,node,k,ans);
+	Node* parent = kthAncestorDFS1(root,node,k,ans);
 	
 	// check if parent is not NULL, it means
 	// there is no Kth ancestor of the node

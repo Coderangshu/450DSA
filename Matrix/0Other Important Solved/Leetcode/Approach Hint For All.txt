@@ -1,0 +1,5 @@
+764. Largest Plus Sign -> for each ith row update min of left and right and 
+     for ith col update min of top and bottom, iterate for all i to get min 
+     of all 4 directions
+
+1632. Rank Transform of a Matrix -> Union Find on cell (union row and col)

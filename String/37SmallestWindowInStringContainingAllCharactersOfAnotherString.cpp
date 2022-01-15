@@ -1,5 +1,3 @@
-    int hash_str[256] = {0};
-
 // { Driver Code Starts
 #include<bits/stdc++.h>
 using namespace std;

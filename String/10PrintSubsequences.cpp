@@ -17,6 +17,15 @@ void prntSs(string op, int initial, int length, string s){
 	}
 }
 
+void bitmasking(string s){
+	int n = s.length();
+	for(int i=1;i<1<<n;i++){
+		string op = "";
+		for(int j=0;j<n;j++) if(i&(1<<j)) op += s[j];
+		cout<<op<<endl;
+	}
+}
+
 int main(){
 	int t;
 	cin>>t;
@@ -25,5 +34,7 @@ int main(){
 		cin>>s;
 		int i=0,n=s.length();
 		prntSs("",i,n,s);
+		cout<<endl;
+		bitmasking(s);
 	}
 }

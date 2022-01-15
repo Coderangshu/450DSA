@@ -127,12 +127,23 @@ class Solution{
         return kthSmallest(root->right, k);
     }
     
+    int ans = -1;
+    
+    void kthSmallest1(Node* root, int &k){
+        if(!root) return;
+        kthSmallest1(root->left, k);
+        if(--k == 0) ans = root->data;
+        kthSmallest1(root->right, k);
+    }
+
     int KthSmallestElement(Node *root, int K)
     {
         //add code here.
-        Node * ans = kthSmallest(root,K);
-        if(ans) return ans->data;
-        else return -1;
+        // Node * ans = kthSmallest1(root,K);
+        // if(ans) return ans->data;
+        // else return -1;
+        kthSmallest1(root, K);
+        return ans;
     }
 };
 

@@ -52,7 +52,7 @@ public:
           //    return memoization(N,arr,sum/2);
          // }
           // bottomUp
-           else return topDown(N,arr,sum);
+           else return topDown(N,arr,sum/2);
      }
 };
 

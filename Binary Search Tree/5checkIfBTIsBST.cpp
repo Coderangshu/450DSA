@@ -47,6 +47,12 @@ class Solution
         }
     }
     
+    bool isBSTUtil1(Node* root, int min, int max){
+        if(!root) return true;
+        if(root->data < min || root->data > max) return false;
+        return isBSTUtil1(root->left, min, root->data-1) && isBSTUtil1(root->right, root->data+1, max);
+    }
+
     bool isBST(Node* root) 
     {
         // Your code here
@@ -54,7 +60,8 @@ class Solution
         // inorder representation of the tree uptill that
         // node
         int prev = INT_MIN;
-        return isBSTUtil(root, prev);
+        // return isBSTUtil(root, prev);
+        return isBSTUtil1(root, INT_MIN, INT_MAX);
     }
 };
 

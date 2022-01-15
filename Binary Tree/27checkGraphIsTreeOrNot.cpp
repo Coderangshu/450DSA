@@ -59,7 +59,7 @@ class Graph
 
             // The call to isCyclicUtil serves multiple purposes.
             // It returns true if graph reachable from vertex 0
-            // is cyclcic. It also marks all vertices reachable
+            // is cyclic. It also marks all vertices reachable
             // from 0.
             if (isCyclicUtil(0, visited, -1))
                     return false;

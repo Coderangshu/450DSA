@@ -1,0 +1,38 @@
+class Solution {
+public:
+    void dfs(vector<vector<int>> &adj, int cur, vector<bool> &visited, vector<int> &val){
+        if(!visited[val[cur]]){
+            visited[val[cur]] = true;
+            for(auto e:adj[cur]) dfs(adj,e,visited,val);
+        }
+        return;
+    }
+    
+    vector<int> smallestMissingValueSubtree(vector<int>& parents, vector<int>& nums) {
+        int n = parents.size();
+        vector<int> ans(n,1);
+        auto it = find(nums.begin(),nums.end(),1);
+        if(it==nums.end()) return ans;
+        
+        vector<vector<int>> adj(n,vector<int>());
+        // numsVisited array helps in giving the mex too!
+        // numsVisited stores the nums that have been visited
+        // we consider min mex as 1 and then traverse the subtrees
+        // marking numsVisited as visited then after each subtree
+        // traversal go to the most min nums that hasn't been visited
+        // that would be the mex for that subtree and so on
+        vector<bool> numsVisited(100001,false);
+        
+        for(int i=1;i<n;i++) adj[parents[i]].push_back(i);
+        
+        int cur = it-nums.begin(), mex = 1;
+        while(cur!=-1){
+            dfs(adj,cur,numsVisited,nums);
+            while(numsVisited[mex]) mex++;
+            ans[cur] = mex;
+            cur = parents[cur];
+        }
+        
+        return ans;
+    }
+};

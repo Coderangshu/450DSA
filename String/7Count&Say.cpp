@@ -19,3 +19,26 @@ public:
         return s;
     }
 };
+
+
+// Recursive
+class Solution {
+public:
+    string countAndSay(int n) {
+        if(n==1) return "1";
+        string ans = "";
+        string pans = countAndSay(n-1);
+        int count = 1, sz = pans.length();
+        char pc = pans[0];
+        for(int i=1;i<sz;i++){
+            if(pans[i]==pc) count++;
+            else{
+                ans += to_string(count)+pc;
+                pc = pans[i];
+                count = 1;
+            }
+        }
+        ans += to_string(count)+pc;
+        return ans;
+    }
+};

@@ -84,3 +84,7 @@ int main(){
 	}
 	return 0;
 }
+
+
+// Better solution
+// Sort given array of strings and get the longest common prefix between the first and last strings

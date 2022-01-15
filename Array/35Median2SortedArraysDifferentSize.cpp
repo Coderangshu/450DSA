@@ -30,14 +30,14 @@ double median(vector<int> &a1, vector<int> &a2){
 	// min of right gives us the nearest to median value.
 	// And if length of merged array is odd than simply the 
 	// max(element at immediate left of partX,element at immediate left 
-        // of partY)
+    // of partY)
 	while(low<=high){
 		int partX = (high+low)/2;
 		int partY = (comLen+1)/2-partX;
 		int leftX = (partX==0)?INT_MIN:a1[partX-1];
 		int leftY = (partY==0)?INT_MIN:a2[partY-1];
 		int rightX = (partX==a1.size())?INT_MAX:a1[partX];
-                int rightY = (partY==a2.size())?INT_MAX:a2[partY];
+        int rightY = (partY==a2.size())?INT_MAX:a2[partY];
 		if(leftX<=rightY and leftY<=rightX){
 			if(comLen%2==0) return (max(leftX,leftY)+min(rightX,rightY))/2.0;
 			return max(leftX,leftY);

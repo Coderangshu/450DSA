@@ -15,7 +15,7 @@ public:
     
     int nCr(int n, int r){
         // code here
-        long long int MOD = 1000000007;
+        long long int MOD = 1e9+7;
         vector<vector<long long int>> dp(n+1,vector<long long int>(r+1,0));
         
         for(int i=0;i<n+1;i++){

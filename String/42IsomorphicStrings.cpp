@@ -1,12 +1,6 @@
-    
-
-    
-
 // { Driver Code Starts
 // C++ program to check if two strings are isomorphic
-#include<iostream>
-#include<string.h>
-
+#include<bits/stdc++.h>
 using namespace std;
 #define MAX_CHARS 256
 

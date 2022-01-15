@@ -34,3 +34,4 @@
 # extras
 *.~lock.FINAL450.xlsx#
 .fuse*
+.vscode

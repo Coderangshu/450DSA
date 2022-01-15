@@ -14,7 +14,7 @@ public:
     vector<int> nextPermutation(int N, vector<int> arr){
         // code here
         // next_permutation(nums.begin(),nums.end());
-        // if(N<=1) return;
+        if(N<=1) return arr;
         int i = N-2;
         // Traverse from back to get the break point.
         while(i>=0 && arr[i]>=arr[i+1]) i--;

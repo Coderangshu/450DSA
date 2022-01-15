@@ -97,7 +97,7 @@ class Solution{
       // children of several nodes. Any number of nodes at any level can 
       // have their children swapped. Two empty trees are isomorphic.
       
-      // Return True if the given trees are isomotphic. Else return False.
+      // Return True if the given trees are isomorphic. Else return False.
       bool isIsomorphic(Node *root1,Node *root2){
           //add code here.
           // Both roots are NULL, trees isomorphic by definition

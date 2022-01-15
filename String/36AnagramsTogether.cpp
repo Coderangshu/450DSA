@@ -1,7 +1,6 @@
 // { Driver Code Starts
 //Initial Template for C++
 #include <bits/stdc++.h>
-#include <unordered_map>
 using namespace std;
 vector<vector<string> > Anagrams(vector<string>& string_list) ;
 

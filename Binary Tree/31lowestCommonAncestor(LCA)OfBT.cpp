@@ -69,7 +69,7 @@ class Solution
     }
     
     
-    Node* lca(Node* root ,int n1 ,int n2 )
+    Node* lca1(Node* root ,int n1 ,int n2 )
     {
        //Your code here 
        // count maintains the number of nodes found out of
@@ -88,6 +88,16 @@ class Solution
        // thus LCA present
        else return ans;
     }
+
+    Node* lca(Node* root, int n1, int n2){
+        if(!root or root->data==n1 or root->data==n2) return root;
+        Node *left = lca(root->left,n1,n2);
+        Node *right = lca(root->right,n1,n2);
+        if(!left) return right;
+        else if(!right) return left;
+        else return root;
+    }
+
 };
 
 // { Driver Code Starts.

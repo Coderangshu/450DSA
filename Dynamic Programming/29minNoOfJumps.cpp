@@ -10,23 +10,20 @@ class Solution{
   public:
   
     // O(N^2) approach
-    int minJumps1(int arr[], int n){
+    int minJumps(int arr[], int n){
         // Your code here
         vector<int> dp(n,INT_MAX);
+        dp[0] = 0;
         for(int i=0;i<n;i++){
-            if(i==0) dp[i] = 0;
-            else{
-                int stepsAvailable = arr[i-1];
-                // to keep check when steps available are 0
-                // or if the previous cell isn't reachable
-                // (contains INT_MAX) then this cell can't
-                // be reached from the previous
-                if(stepsAvailable==0 or dp[i-1]==INT_MAX) continue;
-                else for(int j=0;j<stepsAvailable and i+j<n;j++)
-                    dp[i+j] = min(dp[i+j],dp[i-1]+1);
+            // if current cell isn't reachable from starting cell
+            // then it contains INT_MAX and thus no cell next to it
+            // can be reached from it, thus we go on to the next cell
+            if(dp[i] == INT_MAX) continue;
+            for(int j=i+1;j<=i+arr[i] and j<n;j++){
+                dp[j] = min(dp[j],dp[i]+1);
             }
         }
-        return ((dp[n-1]==INT_MAX)?-1:dp[n-1]);
+        return (dp[n-1]==INT_MAX)?-1:dp[n-1];
     }
     
     
@@ -50,7 +47,7 @@ class Solution{
         int minJumpsTaken = 1;
         
         // starting from 2nd cell
-        for(int i=1;i<n-1;i++){
+        for(int i=1;i<n;i++){
             // max reachable from current cell
             maxReachable = max(maxReachable,i+arr[i]);
             // one step advanced inside array thus 1 step
@@ -62,6 +59,8 @@ class Solution{
             // the steps upto the current cell and all in between
             // the current and the steps provider cell
             if(stepsAvailable==0){
+                // if already reached end of array return minJumpsTaken
+                if(i==n-1) return minJumpsTaken;
                 // all movements from the step provider cell
                 // are over and now if the max reachable isn't
                 // atleast upto the next cell than end is unreachable

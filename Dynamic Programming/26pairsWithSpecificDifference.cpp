@@ -29,7 +29,7 @@ class Solution{
                     // now we have two options either to take
                     // this pair or reject
                     
-                    // if i < 2 meaninig only 2 elements in array
+                    // if i < 2 meaning only 2 elements in array
                     if(i<2) dp[i] = max(dp[i-1],arr[i]+arr[i-1]);
                     else dp[i] = max(dp[i-1],dp[i-2]+arr[i]+arr[i-1]);
                 }

@@ -141,7 +141,7 @@ int findHeight(Node *root, int k, int height){
 int findDist(Node* root, int a, int b) {
     // Your code here
     
-    // We fing the LCA, if present calculate the
+    // We find the LCA, if present calculate the
     // distance of LCA and both the nodes then
     // return sum of distance of both the nodes
     int count = 0;

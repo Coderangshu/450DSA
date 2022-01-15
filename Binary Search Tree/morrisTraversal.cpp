@@ -138,8 +138,8 @@ void morrisPostorder(node *root){
 			}
 			else{
 				pre->right = NULL;
-				cout<<current->data<<" ";
 				current = current->right;
+				cout<<current->data<<" ";
 			}
 		}
 	}
@@ -168,6 +168,6 @@ int main(){
 	cout<<"POSTORDER:"<<endl<<"Recursive Postorder:"<<endl;
     postorder(root);
     cout<<endl;
-	//morrisPostorder(root);
+	morrisPostorder(root);
     return 0;
 }

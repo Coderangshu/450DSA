@@ -95,7 +95,7 @@ unordered_map<string,int> subtrees;
 // This function returns empty string if tree
 // contains a duplicate subtree of size 2 or more.
 
-// We use the concept of tree sereialization and hashing
+// We use the concept of tree serialization and hashing
 // We store all possible subtrees in string format in a map
 // with each string as key and their respective count as value
 // If there is any string having value greater than one we return

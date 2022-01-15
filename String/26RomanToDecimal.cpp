@@ -48,12 +48,16 @@ int romanToDecimal(string &str) {
     // code here
     int ans = 0;
     for(int i=0;i<str.length();i++){
-        if(i==str.length()-1){
-            ans += value(str[i]);
-            continue;
+        int s1 = value(str[i]);
+        if(i==str.length()-1) ans += s1;
+        else{
+            int s2 = value(str[i+1]);
+            if(s1>=s2) ans += s1;
+            else{
+                ans += s2-s1;
+                i++;
+            }
         }
-        if(value(str[i])>=value(str[i+1])) ans += value(str[i]);
-        else ans -= value(str[i]);
     }
     return ans;
 }

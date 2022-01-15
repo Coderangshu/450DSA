@@ -1,0 +1,2 @@
+Go through this link, to brush up all types of Stock price problems
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/discuss/75924/Most-consistent-ways-of-dealing-with-the-series-of-stock-problems

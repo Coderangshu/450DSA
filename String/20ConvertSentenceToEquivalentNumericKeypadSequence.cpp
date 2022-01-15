@@ -4,7 +4,7 @@ using namespace std;
 void prntSeq(string s){
 	
 	// The numeric keypad sequence.
-	string str[] = {"2","22","222",                 // ABC
+	string str[] = {"2","22","222",                     // ABC
                     "3","33","333",                     // DEF
                     "4","44","444",                     // GHI
                     "5","55","555",                     // JKL

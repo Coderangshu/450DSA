@@ -104,7 +104,7 @@ class Solution{
         // The leftmost leaf node is reached recursively then
         // its level is stored in leafLevel then the subsequent
         // leaf nodes are checked if any of those's level isn't same
-        // asthe leafLevel then return false
+        // as the leafLevel then return false
         
         // NULL node is as true
         if(!root) return true;

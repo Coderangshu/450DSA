@@ -110,34 +110,16 @@ class Solution
     
     void inorderRecursive(Node* root, Node* &head, Node* &tail){
         if(!root) return;
-        
-        // The standard inorder procedure using recursion is followed
-        // here, i.e. Process left node print root node process right node
-        
-        // Left node is called recursively
         inorderRecursive(root->left, head, tail);
-        
-        // Storing the root in the DLL
-        
-        // If head of DLL is empty then root is new head
-        // i.e. As the left is processed first thus the head
-        // will be the leftmost leaf node
-        if(!head) head = root;
-        
-        // We assign tail to the root->left as the root is
-        // joined right of the tail of DLL
-        // Note:the tail remains NULL for the head of DLL
-        root->left = tail;
-        
-        // If tail isn't NULL then assign root to the right of
-        // tail as the root will become the last element in the
-        // DLL now
-        if(tail) tail->right = root;
-     
-        // root is the new tail
-        tail = root;
-     
-        // Right node is called recursively
+        if(!head){
+            head = root;
+            tail = root;
+        }
+        else{
+            tail->right = root;
+            tail->right->left = tail;
+            tail = tail->right;
+        }
         inorderRecursive(root->right, head, tail);
     }
     
@@ -159,32 +141,21 @@ class Solution
 
 
 /* Function to print nodes in a given doubly linked list */
-void printList(Node *node)
+void printList(Node *head)
 {
-    Node *prev = NULL;
-    while (node!=NULL)
-    {
-        cout << node->data << " ";
-        prev = node;
-        node = node->right;
+    Node *cur = head;
+    while (cur){
+        cout << cur->data << " ";
+        cur = cur->right;
     }
-    cout << endl;
-    while (prev!=NULL)
-    {
-        cout << prev->data << " ";
-        prev = prev->left;
-    }
-    cout << endl;
 }
 
 void inorder(Node *root)
 {
-   if (root != NULL)
-   {
-       inorder(root->left);
-       cout << root->data;
-       inorder(root->right);
-   }
+   if (!root) return;
+   inorder(root->left);
+   cout << root->data;
+   inorder(root->right);
 }
 
 /* Driver program to test size function*/
@@ -203,6 +174,8 @@ int main()
      Solution ob; 
      Node *head = ob.bToDLL(root);
      printList(head);
+     cout << endl;
+    //  inorder(root);
 
   }
   return 0;

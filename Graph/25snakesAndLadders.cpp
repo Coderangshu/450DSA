@@ -21,7 +21,7 @@ public:
         
         // maintaining visited to keep track of already visited nodes
         vector<bool> visited(boardLen*boardLen,false);
-        // marking first node as visted
+        // marking first node as visited
         visited[0] = true;
         
         while(!q.empty()){
