@@ -42,6 +42,24 @@ struct Node* sortAKSortedDLL(struct Node* head, int k)
 	return head;
 }
 
+Node *ksort(Node *head, int k){
+    Node *cur = head;
+    if(!cur->next) return nullptr;
+    cur = cur->next;
+    Node *i, *j;
+    while(cur){
+        i = cur->prev;
+        j = cur;
+        int counter = k;
+        while(i and i->data>j->data and counter){
+            swap(i->data, j->data);
+            i = i->prev;
+            j = j->prev;
+            counter--;
+        }
+        cur = cur->next;
+    }
+}
 
 // 'compare' function used to build up the
 // priority queue

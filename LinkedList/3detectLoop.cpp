@@ -68,7 +68,7 @@ class Solution
         // of index.
         // When hare and tortoise matches this means
         // that there is a loop in the list.
-        while (tortoise && hare && hare->next) {
+        while (hare && hare->next) {
         tortoise = tortoise->next;
         hare = hare->next->next;
         if (tortoise == hare) {

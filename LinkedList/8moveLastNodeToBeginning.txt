@@ -1,5 +1,0 @@
-Easy.
-store last node in temp node named as last node;
-make second last node->next = NULL;
-last node->next = head;
-head = last node;

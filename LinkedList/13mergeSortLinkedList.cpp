@@ -30,14 +30,14 @@ class Solution{
   public:
     //Function to sort the given linked list using Merge Sort.
     Node *listSplitter(Node *head){
-        Node *tortoise = head, *rabbit = head;
+        Node *tortoise = head, *rabbit = head, *prev = nullptr;
         while(!rabbit->next->next and !rabbit->next){
+            prev = tortoise;
             rabbit = rabbit->next->next;
             tortoise = tortoise->next;
         }
-        Node *mp = tortoise->next;
-        tortoise->next = NULL;
-        return mp;
+        prev->next = nullptr;
+        return tortoise;
     }
     
     
@@ -48,15 +48,11 @@ class Solution{
         if(first->data<=second->data){
             first->next = merge(first->next,second);
             // If doubly linked list then activate the below 2 lines rest all functions same
-            // first->next->prev = first;
-            // first->prev = NULL;
             return first;
         }
         else{
             second->next = merge(first,second->next);
             // If doubly linked list then activate the below 2 lines rest all functions same
-            // second->next->prev = second;
-            // second->prev = NULL;
             return second;
         }
     }

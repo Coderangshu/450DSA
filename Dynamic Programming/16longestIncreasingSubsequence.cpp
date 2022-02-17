@@ -95,14 +95,88 @@ public:
         return length;
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
+    // Same approach as above, we just retrieve the LIS using extra space by maintaining a path array which
+    // keeps track of the LIS from the end to the beginning
+    // Time Complexity  : O(nlogn)
+    // Space Complexity : O(3*n) ~ O(n)
+    int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size();
+        
+        // solving for [9,10,2,5,3,7,101,18]
+        
+        // lis : []
+        // lisi : []
+        // path : [-1,-1,-1,-1,-1,-1,-1,-1]
+        // lis keeps track of the length of the LIS and also
+        // the elements (they may not be the LIS, but the last
+        // element of lis is sure to be the last element of the LIS),
+        // lisi keeps track of the lis's element's indices.
+        // path keeps track of the indices from the last index of the LIS
+        // with the help of lisi to get the path to the longest increasing
+        // subsequence, the longest path is found until -1 is obtained in
+        // the path.
+        vector<int> lis,lisi, path(n,-1);
+        
+        for(int i=0;i<n;i++){
+            if(lis.empty() or lis.back()<nums[i]){
+                path[i] = (lis.empty())?-1:lisi.back();
+                lis.push_back(nums[i]);
+                lisi.push_back(i);
+            }
+            else{
+                int ind = lower_bound(lis.begin(),lis.end(),nums[i]) - lis.begin();
+                path[i] = (ind!=0)?lisi[ind-1]:-1;
+                lis[ind] = nums[i];
+                lisi[ind] = i;
+            }
+        }
+        // Dry Run for above for loop
+        // i=0 -> lis  : [9]
+        //        lisi : [0]
+        //        path : [-1,-1,-1,-1,-1,-1,-1,-1]
+        // i=1 -> lis  : [9,10]
+        //        lisi : [0,1]
+        //        path : [-1,0,-1,-1,-1,-1,-1,-1]
+        // i=2 -> lis  : [2,10]
+        //        lisi : [2,1]
+        //        path : [-1,0,-1,-1,-1,-1,-1,-1]
+        // i=3 -> lis  : [2,5]
+        //        lisi : [2,3]
+        //        path : [-1,0,-1,2,-1,-1,-1,-1]
+        // i=4 -> lis  : [2,3]
+        //        lisi : [2,4]
+        //        path : [-1,0,-1,2,2,-1,-1,-1]
+        // i=5 -> lis  : [2,3,7]
+        //        lisi : [2,4,5]
+        //        path : [-1,0,-1,2,2,4,-1,-1]
+        // i=6 -> lis  : [2,3,7,101]
+        //        lisi : [2,4,5,6]
+        //        path : [-1,0,-1,2,2,4,5,-1]
+        // i=7 -> lis  : [2,3,7,18]
+        //        lisi : [2,4,5,7]
+        //        path : [-1,0,-1,2,2,4,5,5]
+        
+        // ans : [_,_,_,_]
+        int lisn = lis.size();
+        vector<int> ans(lisn);
+        int i = lisn-1;
+        
+        int t = lisi.back();
+        while(t!=-1){
+            ans[i--] = nums[t];
+            t = path[t];
+        }
+        // Dry Run for above while loop
+        // t=7 -> ans : [_,_,_,18]
+        // t=5 -> ans : [_,_,7,18]
+        // t=4 -> ans : [_,3,7,18]
+        // t=2 -> ans : [2,3,7,18]
+        // t=-1 -> loop ends
+
+        for(auto e:ans) cout<<e<<" ";
+        cout<<endl;
+        return lisn;
+    }
     
     
     // Method 3: Another approach read the comments in between the code lines

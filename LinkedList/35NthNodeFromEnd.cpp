@@ -80,3 +80,16 @@ int getNthFromLast(Node *head, int n)
 }
 
 
+// Iterative
+int getNthFromLastI(Node *head, int n)
+{
+       // Your code here
+       int len = 0;
+       auto cur = head;
+       while(cur) len++, cur = cur->next;
+       int reqN = len-n;
+       if(reqN<0) return -1;
+       cur = head;
+       while(reqN--) cur = cur->next;
+       return cur->data;
+}

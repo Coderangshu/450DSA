@@ -99,18 +99,13 @@ Node* findIntersection(Node* head1, Node* head2)
 Node* findIntersection1(Node* head1, Node* head2)
 {
     // Your Code Here
-    Node *f=head1, *s=head2, *res=NULL, *prev;
-    while(f!=NULL and s!=NULL){
+    Node *f=head1, *s=head2, *ans=NULL, *cur;
+    while(!f and !s){
         if(f->data==s->data){
-            if(res==NULL){
-                Node *nn = new Node(f->data);
-                res = nn;
-                prev = nn;
-            }
+            if(!ans) ans = cur = new Node(f->data);
             else{
-                Node *nn = new Node(f->data);
-                prev->next = nn;
-                prev = nn;
+                cur->next = new Node(f->data);
+                cur = cur->next;
             }
             f = f->next;
             s = s->next;
@@ -120,5 +115,31 @@ Node* findIntersection1(Node* head1, Node* head2)
             else s = s->next;
         }
     }
-    return res;
+    return ans;
+}
+
+// Using map
+Node* findIntersection2(Node* head1, Node* head2){
+    // Your Code Here
+    unordered_map<int,int> mp;
+    auto cur = head1;
+    while(cur){
+        mp[cur->data]++;
+        cur = cur->next;
+    }
+    cur = head2;
+    Node *ans = nullptr, *ansCur = nullptr;
+    while(cur){
+        if(mp.count(cur->data)){
+            mp[cur->data]--;
+            if(mp[cur->data]==0) mp.erase(cur->data);
+            if(!ans) ans = ansCur = new Node(cur->data);
+            else{
+                ansCur->next = new Node(cur->data);
+                ansCur = ansCur->next;
+            }
+        }
+        cur = cur->next;
+    }
+    return ans;
 }

@@ -141,7 +141,7 @@ and returns their product*/
 long long  multiplyTwoLists (Node* l1, Node* l2)
 {
     //Your code here
-    long long i1 = 0, i2 = 0, MOD = 1000000007;
+    long long i1 = 0, i2 = 0, MOD = 1e9+7;
     int count = 0;
     while(l1){
         i1 = (i1*10+l1->data)%MOD;

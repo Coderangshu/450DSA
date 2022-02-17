@@ -118,6 +118,21 @@ Node* reverseDLL(Node * head)
     return head;
 }
 
+// Another way of writing
+Node* reverseDLL1(Node * head)
+{
+    //Your code here
+    auto cur = head;
+    Node *prv = nullptr;
+    while(cur){
+        auto temp = cur->next;
+        cur->next = cur->prev;
+        cur->prev = temp;
+        prv = cur;
+        cur = cur->prev;
+    }
+    return prv;
+}
 
 // { Driver Code Starts.
 

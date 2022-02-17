@@ -12,29 +12,23 @@ struct Node{
 
 void printLL(Node *head){
     auto cur = head;
-    do{
+    while(cur){
         cout<<cur->data<<" ";
         cur = cur->next;
-    }while(cur!=head);
+    }
     cout<<endl;
 }
 
-Node* deleteNode(Node *head, int delKey){
-	if(!head) return head;
-	auto cur = head;
-	Node *prev = head->next;
-	while(prev->next!=head) prev = prev->next;
-	do{
-		if(cur->data==delKey){
-			prev->next = cur->next;
-			if(cur==head) head = cur->next;
-			free(cur);
-			break;
-		}
-		prev = cur;
-		cur = cur->next;
-	}while(cur!=head);
-	return head;
+Node* changeHead(Node *head){
+    if(!head) return nullptr;
+    Node *cur = head, *prev;
+    while(cur->next){
+        prev = cur;
+        cur = cur->next;
+    }
+    prev->next = nullptr;
+    cur->next = head;
+    return cur;
 }
 
 int main(){
@@ -50,11 +44,8 @@ int main(){
         cur->next = new Node(e);
         cur = cur->next;
     }
-	cur->next = head;
-	int delKey;
-	cin>>delKey;
     printLL(head);
-    auto newHead = deleteNode(head, delKey);
-    printLL(newHead);
+    auto changedHead = changeHead(head);
+    printLL(changedHead);
     return 0;
 }

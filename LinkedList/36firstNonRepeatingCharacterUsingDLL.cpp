@@ -112,6 +112,70 @@ class Solution {
 
 };
 
+
+// Same as above just using vector to update the head and tail 
+// instead of passing them as reference to the functions
+class solution2{
+    private:
+        struct Node{
+            char data;
+            Node *next, *prev;
+            Node(char val){
+                data = val;
+                next = prev = nullptr;
+            }
+        };
+        
+        vector<Node*> addNode(Node *head, Node *tail, char c){
+            if(!head) head = tail = new Node(c);
+            else{
+                tail->next = new Node(c);
+                tail->next->prev = tail;
+                tail = tail->next;
+            }
+            return vector<Node*> {head,tail};
+        }
+        
+        vector<Node*> delNode(Node *head, Node *tail, Node *toDel){
+            if(head==tail and head==toDel){
+                free(toDel);
+                return vector<Node*> {nullptr,nullptr};
+            }
+            else if(head==toDel) head = head->next;
+            else if(tail==toDel) tail = tail->prev;
+            else{
+                toDel->prev->next = toDel->next;
+                toDel->next->prev = toDel->prev;
+            }
+            free(toDel);
+            return vector<Node*> {head,tail};
+        }
+        
+	public:
+		string FirstNonRepeating(string A){
+		    // Code here
+		    vector<bool> repeated(26,false);
+		    vector<Node*> address(26,nullptr);
+		    Node* head = nullptr, *tail = nullptr;
+		    string ans = "";
+		    for(auto &c:A){
+		        if(!address[c-'a']){
+		            auto v = addNode(head,tail,c);
+		            head = v[0], tail = address[c-'a'] = v[1];
+		        }
+		        else{
+		            if(!repeated[c-'a']){
+		                auto v = delNode(head,tail,address[c-'a']);
+		                head = v[0], tail = v[1];
+		                repeated[c-'a'] = true;
+		            }
+		        }
+		        ans += head?head->data:'#';
+		    }
+		    return ans;
+		}
+};
+
 // { Driver Code Starts.
 int main(){
 	int tc;

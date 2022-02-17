@@ -26,35 +26,6 @@ void loopHere(Node* head, Node* tail, int position)
     tail->next = walk;
 }
 
-bool isLoop(Node* head)
-{
-    if(!head) return false;
-    
-    Node* fast = head->next;
-    Node* slow = head;
-    
-    while( fast != slow)
-    {
-        if( !fast || !fast->next ) return false;
-        fast=fast->next->next;
-        slow=slow->next;
-    }
-    
-    return true;
-}
-
-int length(Node* head)
-{
-    int ret = 0;
-    while(head)
-    {
-        ret++;
-        head = head->next;
-    }
-    return ret;
-}
-
-
  // } Driver Code Ends
 /*
 structure of linked list node:
@@ -77,15 +48,13 @@ class Solution
 {
     public:
     //Function to remove a loop in the linked list.
-    void removeLoop(Node* head)
+    Node* firstNode(Node* head)
     {
         // code here
-        // just remove the loop without losing any nodes
-        Node *tortoise = head, *hare = head, *prev;
+        Node *tortoise = head, *hare = head;
         bool present=false;
             while (hare && hare->next) {
             tortoise = tortoise->next;
-            prev = hare->next;
             hare = hare->next->next;
             if (tortoise == hare) {
                 present = true;
@@ -96,11 +65,11 @@ class Solution
             tortoise = head;
             while(tortoise!=hare){
                 tortoise = tortoise->next;
-                prev = hare;
                 hare = hare->next;
             }
-            prev->next = NULL;
+            return tortoise;
         }
+        else return nullptr;
     }
 };
 
@@ -131,12 +100,10 @@ int main()
         loopHere(head,tail,pos);
         
         Solution ob;
-        ob.removeLoop(head);
+        auto firstNode = ob.firstNode(head);
         
-        if( isLoop(head) || length(head)!=n )
-            cout<<"0\n";
-        else
-            cout<<"1\n";
+        cout<<"First Node of the loop is: ";
+        cout<<firstNode->data<<endl;
     }
 	return 0;
 }

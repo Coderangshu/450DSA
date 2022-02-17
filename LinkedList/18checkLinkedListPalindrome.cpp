@@ -48,48 +48,38 @@ class Solution{
         // Getting mid element in tortoise
         // And also determining whether length
         // is odd or even with help of rabbit.
-        if(head->next==NULL) return true;
-        Node *tortoise = head, *rabbit = head, *prev;
-        while(1!=0){
-            if(rabbit->next==nullptr) break;
-            if(rabbit->next->next==nullptr) break;
-            rabbit = rabbit->next->next;
-            prev = tortoise;
-            tortoise = tortoise->next;
-            if(rabbit->next==nullptr) break;
-            if(rabbit->next->next==nullptr)break;
+        if(!head->next) return true;
+        auto slow = head, fast = head;
+        Node *prev = nullptr;
+        while(fast->next and fast->next->next){
+            fast = fast->next->next;
+            prev = slow;
+            slow = slow->next;
         }
         
-        // If linked list length is odd we remove
-        // the middle element of the linked list
-        if(rabbit->next==NULL){
-            prev->next = tortoise->next;
-            free(tortoise);
+        Node *head2 = slow->next;
+        
+        // when there's fast->next means linked list is of even length
+        // break the linked list after slow
+        if(fast->next) slow->next = nullptr;
+
+        // when fast->next is null means liked list is of odd length
+        // break after prev and free the slow
+        else{
+            prev->next = nullptr;
+            free(slow);
         }
-        // If length is even then just assigning tortoise
-        // to prev to keep a similarity of terminology in
-        // future.
-        else prev = tortoise;
-        
-        // We divide the linked list at the midpoint
-        // as now the length is even thus we get two
-        // equal length linked list.
-        // We reverse the second linked list and then
-        // join it with the first linked list
-        Node *sh = prev->next;
-        prev->next = NULL;
-        prev->next = reverse(sh);
-        
-        // Now we compare each element in each half
-        // if any of them not equal thus the list is
-        // not palindromic
-        Node *apparent_head2 = prev->next;
-        Node *current = head;
-        while(current!=prev->next){
-            if(current->data!=apparent_head2->data) return false;
-            current = current->next;
-            apparent_head2 = apparent_head2->next;
-        };
+
+        // reverse the second linked list
+        head2 = reverse(head2);
+        // traverse both linked list if non matching data found
+        // return false if both linked list traversed completely
+        // return true
+        while(head and head2){
+            if(head->data!=head2->data) return false;
+            head = head->next;
+            head2 = head2->next;
+        }
         return true;
     }
 };

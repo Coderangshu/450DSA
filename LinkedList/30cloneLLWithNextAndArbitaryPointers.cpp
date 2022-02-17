@@ -177,9 +177,13 @@ struct Node {
 */
 
 //Function to clone a linked list with next and random pointer.
-Node *copyList(Node *head) {
-    // Your code here
-    Node *current = head, *temp, *temp2;
+Node *copyList(Node *head)
+{
+    //Write your code here
+    Node *current = head;
+    // step 1 -> make the clones of each node and add them 
+    // after the original node
+
     // Inserting the copies of each node after
     // them i.e.:
     // Before: 1->2->3->4->5
@@ -191,24 +195,25 @@ Node *copyList(Node *head) {
         current = temp;
     }
     
+    // step 2 -> connect the arbitary nodes of the clones
+    // according to the original arbitary nodes
+
     current = head;
     // Aping the current pointer's arb node into
     // the current->next(which is a copy of current)
     while(current){
-        if(current->next)
-            current->next->arb = (current->arb)?current->arb->next:current->arb;
-        current = (current->next)?current->next->next:current->next;
+        if(current->arb) current->next->arb = current->arb->next;
+        current = current->next->next;
     }
     
-    // Breaking the original and the clone LLs from each other
-    Node *original = head, *clone = head->next;
-    temp = original;
-    temp2 = clone;
-    while(temp and temp2){
-        temp->next = (temp->next)?temp->next->next:temp->next;
-        temp2->next = (temp2->next)?temp2->next->next:temp2->next;
-        temp = temp->next;
-        temp2 = temp2->next;
+    // step 3 -> Breaking the original and the clone LLs from each other
+    Node *clone = head->next;
+    auto cur1 = head, cur2 = clone;
+    while(temp){
+        cur1->next = cur2->next;
+        cur = cur->next;
+        if(cur) cur2->next = cur->next;
+        cur2 = cur2->next;
     }
     return clone;
 }

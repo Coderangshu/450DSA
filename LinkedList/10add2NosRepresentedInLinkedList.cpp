@@ -89,7 +89,6 @@ class Solution
     int addSameSizeLists(struct Node* first, struct Node* second, struct Node* res){
         if(first->next==NULL){
             int ans = first->data+second->data;
-            // cout<<first->data<<" "<<second->data<<endl;
             res->data = ans%10;
             return ans/10;
         }
@@ -162,6 +161,68 @@ class Solution
     }
 };
 
+// Using stack
+class Solution1
+{
+    public:
+    //Function to add two numbers represented by linked list.
+    struct Node* addTwoLists(struct Node* first, struct Node* second)
+    {
+        // code here
+        stack<Node*> stk1, stk2;
+        auto cur = first;
+        while(cur){
+            stk1.push(cur);
+            cur = cur->next;
+        }
+        cur = second;
+        while(cur){
+            stk2.push(cur);
+            cur = cur->next;
+        }
+        int carry = 0;
+        Node *head = nullptr;
+        while(!stk1.empty() and !stk2.empty()){
+            auto top1 = stk1.top(), top2 = stk2.top();
+            stk1.pop(), stk2.pop();
+            int ans = carry + top1->data + top2->data;
+            carry = ans/10;
+            ans %= 10;
+            if(!head) head = new Node(ans);
+            else{
+                Node *newHead = new Node(ans);
+                newHead->next = head;
+                head = newHead;
+            }
+        }
+        while(!stk1.empty()){
+            auto top = stk1.top();
+            stk1.pop();
+            int ans = carry + top->data;
+            carry = ans/10;
+            ans %= 10;
+            Node *newHead = new Node(ans);
+            newHead->next = head;
+            head = newHead;
+        }
+        while(!stk2.empty()){
+            auto top = stk2.top();
+            stk2.pop();
+            int ans = carry + top->data;
+            carry = ans/10;
+            ans %= 10;
+            Node *newHead = new Node(ans);
+            newHead->next = head;
+            head = newHead;
+        }
+        if(carry){
+            Node *newHead = new Node(carry);
+            newHead->next = head;
+            head = newHead;
+        }
+        return head;
+    }
+};
 
 // { Driver Code Starts.
 

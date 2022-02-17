@@ -100,15 +100,21 @@ struct Node
 void splitList(Node *head, Node **head1_ref, Node **head2_ref)
 {
     // your code goes here
-     Node *tortoise = head, *rabbit = head;
-        while(rabbit->next->next!=head and rabbit->next!=head){
-            rabbit = rabbit->next->next;
-            tortoise = tortoise->next;
-        }
-        // If even move one step forward to get the last node
-        if(rabbit->next!=head) rabbit = rabbit->next;
-        *head1_ref = head;
-        *head2_ref = tortoise->next;
-        rabbit->next = tortoise->next;
-        tortoise->next = head;
+    *head1_ref = head;
+    auto cur = head, slow = head, fast = head;
+    while(fast->next!=head and fast->next->next!=head){
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    // The above while loop will terminate either at 
+    // the last node before head (when odd number of nodes are present),
+    // or second last node before head (when even number of nodes are present).
+
+    *head2_ref = slow->next;
+    slow->next = head;
+
+    // When odd number of nodes
+    if(fast->next==head) fast->next = *head2_ref;
+    // else when even number of nodes
+    else fast->next->next = *head2_ref;
 }

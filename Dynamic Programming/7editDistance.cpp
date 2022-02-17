@@ -4,12 +4,23 @@ using namespace std;
 
  // } Driver Code Ends
 class Solution {
-  public:
-  
+  private:
+    vector<vector<int>> memo;
+    int recursion(string &word1, string &word2, int i, int j, int n, int m){
+        if(i==n) return m-j;
+        if(j==m) return n-i;
+        if(memo[i][j]!=-1) return memo[i][j];
+        if(word1[i]==word2[j]) return memo[i][j] = recursion(word1,word2,i+1,j+1,n,m);
+        int ins = recursion(word1,word2,i,j+1,n,m);
+        int del = recursion(word1,word2,i+1,j,n,m);
+        int rep = recursion(word1,word2,i+1,j+1,n,m);
+        return memo[i][j] = 1+min(ins,min(del,rep));
+    }
+
+
     int Min(int a, int b, int c){
         return min(a,min(b,c));
     }
-    
     int editDistanceUtil(string s1, int n1, string s2, int n2){
         int dp[n1+1][n2+1];
         for(int i=0;i<n1+1;i++){
@@ -32,15 +43,20 @@ class Solution {
             }
         }
         
-        // for(int i=0;i<n1+1;i++){
-        //     for(int j=0;j<n2+1;j++) cout<<dp[i][j]<<" ";
-        //     cout<<endl;
-        // }
         return dp[n1][n2];
     }
+  public:
   
     int editDistance(string s, string t) {
         // Code here
+        // Uncomment any of the below either recursion or iterative
+        
+        // recursion
+        // int n = word1.length(), m = word2.length();
+        // memo.assign(n+1,vector<int>(m+1,-1));
+        // return recursion(word1,word2,0,0,n,m);
+
+        // iterative
         int ans = editDistanceUtil(s,s.length(),t,t.length());
         return ans;
     }

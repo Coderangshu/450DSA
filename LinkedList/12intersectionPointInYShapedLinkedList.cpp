@@ -106,7 +106,7 @@ int intersectPoint(Node* head1, Node* head2)
     // There will be two cases when the while loop breaks,
     // either if an intersection is present or if there is
     // no intersection thus both pointer reach NULL and become
-    // equual. So if any of the pointer is NULL means no intersection.
+    // equal. So if any of the pointer is NULL means no intersection.
     if(f) return f->data;
     else  return 0;
 }

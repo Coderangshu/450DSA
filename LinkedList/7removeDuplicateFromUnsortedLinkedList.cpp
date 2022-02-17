@@ -49,13 +49,12 @@ class Solution
             if(s.find(current->data)!=s.end()){
                 prev->next = current->next;
                 free(current);
-                current = current->next;
             }
             else{
                 s.insert(current->data);
                 prev = current;
-                current = current->next;
             }
+            current = current->next;
         }
         return head;
     }

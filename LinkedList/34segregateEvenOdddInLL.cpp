@@ -40,11 +40,11 @@ struct Node
 };
 */
 class Solution{
-public:
-    Node* divide(int N, Node *head){
-        // code here
+private:
+    // TC : O(n^2), SC : O(n) (recursive stack)
+    Node * recursion(Node *head){
         if(!head or !head->next) return head;
-        Node *nextNode = divide(N-1,head->next);
+        Node *nextNode = recursion(head->next);
         // If head is even or nextNode is odd,
         // nextNode data odd means that there
         // are no even numbers yet in the chain
@@ -73,6 +73,58 @@ public:
             head->next = temp2;
             return nextNode;
         }
+    }
+
+    // recursive function to return {head,last even node node}
+    // TC : O(n), SC : O(n) (recursive stack)
+    pair<Node*,Node*> recursion1(Node *head){
+        if(!head->next) return (head->data%2==0)?make_pair(head,head):make_pair(head,nullptr);
+        auto p = recursion1(head->next);
+        auto nextNode = p.first, lastEvenNode = p.second;
+        if(head->data%2!=0 and nextNode->data%2==0){
+            auto tempNext = lastEvenNode->next;
+            lastEvenNode->next = head;
+            head->next = tempNext;
+            return {nextNode,lastEvenNode};
+        }
+        else{
+            head->next = nextNode;
+            if(head->data%2==0 and nextNode->data%2!=0) return {head,head};
+            else return {head,lastEvenNode};
+        }
+    }
+
+    // iterative approach = seperating even and odd nodes into 2 lists
+    // then adding them back together
+    // TC : O(n), SC : O(1)
+    Node *iterative(Node *head){
+        if(!head or !head->next) return head;
+        Node *evenHead = nullptr, *evenTail = nullptr, *oddHead = nullptr, *oddTail = nullptr;
+        while(head){
+            if(head->data%2==0){
+                if(!evenHead) evenHead = head;
+                else evenTail->next = head;
+                evenTail = head;
+            }
+            else{
+                if(!oddHead) oddHead = head;
+                else oddTail->next = head;
+                oddTail = head;
+            }
+            head = head->next;
+        }
+        if(evenTail) evenTail->next = oddHead;
+        else evenHead = oddHead;
+        if(oddTail) oddTail->next = nullptr;
+        return evenHead;
+    }
+
+public:
+    Node* divide(int N, Node *head){
+        // code here
+        // return recursion(head);
+        // return recursion1(head).first;
+        return iterative(head);
     }
 };
 

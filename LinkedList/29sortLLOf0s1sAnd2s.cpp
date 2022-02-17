@@ -38,35 +38,35 @@ class Solution
         // Add code here
         // Initialize count of '0', '1' and '2' as 0
         int count[3] = {0, 0, 0};
-        Node *ptr = head;
+        Node *cur = head;
  
         /* count total number of '0', '1' and '2'
         * count[0] will store total number of '0's
         * count[1] will store total number of '1's
         * count[2] will store total number of '2's */
-        while (ptr != NULL)
+        while (cur != NULL)
         {
-            count[ptr->data] += 1;
-            ptr = ptr->next;
+            count[cur->data] += 1;
+            cur = cur->next;
         }
      
         int i = 0;
-        ptr = head;
+        cur = head;
      
         /* Let say count[0] = n1, count[1] = n2 and count[2] = n3
         * now start traversing list from head node,
         * 1) fill the list with 0, till n1 > 0
         * 2) fill the list with 1, till n2 > 0
         * 3) fill the list with 2, till n3 > 0 */
-        while (ptr != NULL)
+        while (cur != NULL)
         {
             if (count[i] == 0)
                 i++;
             else
             {
-                ptr->data = i;
+                cur->data = i;
                 count[i]--;
-                ptr = ptr->next;
+                cur = cur->next;
             }
         }
         return head;
