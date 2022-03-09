@@ -1,1 +1,0 @@
-Easy, same as 10findPairGivenSum

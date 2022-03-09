@@ -1,4 +1,0 @@
-Use binary search.
-Also use the concept that the array is rotated so there is a pivot present in between which
-is greater than both its left and right counterparts(Like the dictionary problem).
-Then decide which side has got the valley and then proceed accordingly.
