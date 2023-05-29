@@ -50,7 +50,15 @@ class Solution
         return prev;
     }
     
-    // Recursive approach
+    // Recursive approach using similar concept to while loop
+    Node* recursion(Node* cur, Node* prev) {
+        auto next = cur->next;
+        cur->next = prev;
+        if (!next) return cur;
+        return recursion(next,cur);
+    }
+
+    // Recursive (another approach)
     struct Node* reverseList(struct Node *head){
         // as recursive for every head the recursion
         // reaches the end of the linked list thus rest

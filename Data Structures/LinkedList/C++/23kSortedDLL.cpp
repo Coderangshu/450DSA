@@ -15,50 +15,55 @@ struct Node {
 // Space complexity: O(1)
 struct Node* sortAKSortedDLL(struct Node* head, int k)
 {
-	if(head == NULL || head->next == NULL)
-		return head;
-
-	// perform on all the nodes in list
-	for(Node *i = head->next; i != NULL; i = i->next) {
-		Node *j = i;
+	if(!head or !head->next) return head;
+	// perform on all the nodes beginning from the 2nd
+	for(Node *cur = head->next; cur != nullptr;) {
+		Node *curNext = cur->next;
+        int counter = k;
 		// There will be atmost k swaps for each element in the list
 		// since each node is k steps away from its correct position
-		while(j->prev != NULL && j->data < j->prev->data) {
-			// swap j and j.prev node
-			Node* pprev = j->prev->prev;
-			Node* prev = j->prev;
-			Node *next = j->next;
-			j->prev->next = next;
-			j->prev->prev = j;
-			j->prev = pprev;
-			j->next = prev;
-			if(pprev != NULL) pprev->next = j;
-			if(next != NULL) next->prev = prev;
+		while(counter-- and cur->prev and cur->data < cur->prev->data) {
+            // store previous to prev, prev and next of cur
+			Node *pprev = cur->prev->prev, *prev = cur->prev, *next = cur->next;
+			// swap prev and cur node
+            cur->next = prev;
+            prev->prev = cur;
+            // connect the 2 swapped nodes back to the linked list
+            cur->prev = pprev;
+            prev->next = next;
+			if(pprev) pprev->next = cur;
+			if(next) next->prev = prev;
 		}
 		// if j is now the new head
         // then reset head
-		if(j->prev == NULL) head = j;
+		if(!cur->prev) head = cur;
+        cur = curNext;
 	}
 	return head;
 }
 
+// Same as above using while loop instead of for loop
 Node *ksort(Node *head, int k){
+    if(!head or !head->next) return head;
     Node *cur = head;
-    if(!cur->next) return nullptr;
+    if(!cur->next) return cur;
     cur = cur->next;
-    Node *i, *j;
     while(cur){
-        i = cur->prev;
-        j = cur;
+        Node *curNext = cur->next;
         int counter = k;
-        while(i and i->data>j->data and counter){
-            swap(i->data, j->data);
-            i = i->prev;
-            j = j->prev;
-            counter--;
+        while(counter-- and cur->prev and cur->data < cur->prev->data){
+            Node *pprev = cur->prev->prev, *prev = cur->prev, *next = cur->next;
+            cur->next = prev;
+            prev->prev = cur;
+            cur->prev = pprev;
+            prev->next = next;
+			if(pprev) pprev->next = cur;
+			if(next) next->prev = prev;
         }
-        cur = cur->next;
+        if(!cur->prev) head = cur;
+        cur = curNext;
     }
+    return head;
 }
 
 // 'compare' function used to build up the
@@ -74,17 +79,17 @@ struct compare {
 struct Node* sortAKSortedDLL1(struct Node* head, int k)
 {
     // if list is empty
-    if (head == NULL) return head;
+    if (head == nullptr) return head;
  
     // priority_queue 'pq' implemented as min heap with the
     // help of 'compare' function
     priority_queue<Node*, vector<Node*>, compare> pq;
  
-    struct Node* newHead = NULL, *last;
+    struct Node* newHead = nullptr, *last;
  
     // Create a Min Heap of first (k+1) elements from
     // input doubly linked list
-    for (int i = 0; head != NULL && i <= k; i++) {
+    for (int i = 0; head != nullptr && i <= k; i++) {
         // push the node on to 'pq'
         pq.push(head);
  
@@ -99,9 +104,9 @@ struct Node* sortAKSortedDLL1(struct Node* head, int k)
         // result sorted list so far having the first node
         // pointed to by 'newHead'
         // and adjust the required links
-        if (newHead == NULL) {
+        if (newHead == nullptr) {
             newHead = pq.top();
-            newHead->prev = NULL;
+            newHead->prev = nullptr;
  
             // 'last' points to the last node
             // of the result sorted list so far
@@ -118,7 +123,7 @@ struct Node* sortAKSortedDLL1(struct Node* head, int k)
         pq.pop();
  
         // if there are more nodes left in the input list
-        if (head != NULL) {
+        if (head != nullptr) {
             // push the node on to 'pq'
             pq.push(head);
  
@@ -127,8 +132,8 @@ struct Node* sortAKSortedDLL1(struct Node* head, int k)
         }
     }
  
-    // making 'next' of last node point to NULL
-    last->next = NULL;
+    // making 'next' of last node point to nullptr
+    last->next = nullptr;
  
     // new head of the required sorted DLL
     return newHead;
@@ -147,14 +152,14 @@ void push(struct Node** head_ref, int new_data)
 	new_node->data = new_data;
 
 	// since we are adding at the beginning,
-	// prev is always NULL
-	new_node->prev = NULL;
+	// prev is always nullptr
+	new_node->prev = nullptr;
 
 	// link the old list off the new node
 	new_node->next = (*head_ref);
 
 	// change prev of head node to new node
-	if ((*head_ref) != NULL)
+	if ((*head_ref) != nullptr)
 		(*head_ref)->prev = new_node;
 
 	// move the head to point to the new node
@@ -165,10 +170,10 @@ void push(struct Node** head_ref, int new_data)
 void printList(struct Node* head)
 {
 	// if list is empty
-	if (head == NULL)
+	if (head == nullptr)
 		cout << "Doubly Linked list empty";
 
-	while (head != NULL) {
+	while (head != nullptr) {
 		cout << head->data << " ";
 		head = head->next;
 	}
@@ -177,7 +182,7 @@ void printList(struct Node* head)
 // Driver program to test above
 int main()
 {
-	struct Node* head = NULL;
+	struct Node* head = nullptr;
 
 	// Create the doubly linked list:
 	// 3<->6<->2<->12<->56<->8

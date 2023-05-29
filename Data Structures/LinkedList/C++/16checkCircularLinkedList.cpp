@@ -73,16 +73,16 @@ struct Node
 bool isCircular(Node *head)
 {
     // Your code here
-    if (head == NULL) return true;
-    Node *node = head->next;
+    if (!head) return true;
+    Node *cur = head->next;
  
     // This loop would stop in both cases (1) If
     // Circular (2) Not circular
-    while (node != NULL && node != head)
-       node = node->next;
+    while (cur and cur!=head)
+       cur = cur->next;
  
     // If loop stopped because of circular
     // condition
-    return (node == head);
+    return (cur == head);
 }
 

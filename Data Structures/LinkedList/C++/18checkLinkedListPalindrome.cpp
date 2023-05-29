@@ -34,11 +34,10 @@ class Solution{
     //Function to check whether the list is palindrome.
     
     Node *reverse(Node *head){
-        // cout<<head->data<<endl;
-        if(head->next==NULL) return head;
+        if(!head->next) return head;
         Node *rest = reverse(head->next);
         head->next->next = head;
-        head->next = NULL;
+        head->next = nullptr;
         return rest;
     }
     

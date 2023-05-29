@@ -11,7 +11,7 @@ struct node
     
     node(int x){
         data = x;
-        next = NULL;
+        next = nullptr;
     }
 };
 
@@ -31,7 +31,7 @@ void push(struct node** head_ref, int new_data)
 /* A utility function to print linked list */
 void printList(struct node *node)
 {
-    while (node != NULL)
+    while (node != nullptr)
     {
         printf("%d ", node->data);
         node = node->next;
@@ -60,7 +60,7 @@ int main()
     quickSort(&head);
  
     printList(head);
- while(head!= NULL){
+ while(head!= nullptr){
      temp=head;
      head=head->next;
      free(temp);
@@ -80,7 +80,7 @@ struct node
     
     node(int x){
         data = x;
-        next = NULL;
+        next = nullptr;
     }
 }; */
 
@@ -88,18 +88,17 @@ struct node
 
 struct node* getTail(struct node* cur)
 {
-    while (cur != NULL && cur->next != NULL)
+    while (cur->next)
         cur = cur->next;
     return cur;
 }
  
 // Partitions the list taking the last element as the pivot
-struct node* partition(struct node* head, struct node* end,
-                       struct node** newHead,
-                       struct node** newEnd)
+struct node* partition(struct node* head, struct node* end, 
+                        struct node* newHead, struct node* newEnd)
 {
     struct node* pivot = end;
-    struct node *prev = NULL, *cur = head, *tail = pivot;
+    struct node *prev = nullptr, *cur = head, *tail = pivot;
  
     // During partition, both the head and end of the list
     // might change which is updated in the newHead and
@@ -108,9 +107,7 @@ struct node* partition(struct node* head, struct node* end,
         if (cur->data < pivot->data) {
             // First node that has a value less than the
             // pivot - becomes the new head
-            if ((*newHead) == NULL)
-                (*newHead) = cur;
- 
+            if (newHead == nullptr) newHead = cur;
             prev = cur;
             cur = cur->next;
         }
@@ -120,21 +117,21 @@ struct node* partition(struct node* head, struct node* end,
             // tail
             if (prev)
                 prev->next = cur->next;
-            struct node* tmp = cur->next;
-            cur->next = NULL;
+            auto tmp = cur->next;
             tail->next = cur;
             tail = cur;
+            cur->next = nullptr;
             cur = tmp;
         }
     }
  
     // If the pivot data is the smallest element in the
     // current list, pivot becomes the head
-    if ((*newHead) == NULL)
-        (*newHead) = pivot;
+    if (newHead == nullptr)
+        newHead = pivot;
  
     // Update newEnd to the current last node
-    (*newEnd) = tail;
+    newEnd = tail;
  
     // Return the pivot node
     return pivot;
@@ -147,20 +144,20 @@ struct node* quickSortRecur(struct node* head,struct node* end)
     if (!head or head == end)
         return head;
  
-    node *newHead = NULL, *newEnd = NULL;
+    node *newHead = nullptr, *newEnd = nullptr;
  
     // Partition the list, newHead and newEnd will be
     // updated by the partition function
-    struct node* pivot = partition(head, end, &newHead, &newEnd);
+    struct node* pivot = partition(head, end, newHead, newEnd);
  
     // If pivot is the smallest element - no need to recur
     // for the left part.
     if (newHead != pivot) {
-        // Set the node before the pivot node as NULL
+        // Set the node before the pivot node as nullptr
         struct node* tmp = newHead;
         while (tmp->next != pivot)
             tmp = tmp->next;
-        tmp->next = NULL;
+        tmp->next = nullptr;
  
         // Recur for the list before pivot
         newHead = quickSortRecur(newHead, tmp);

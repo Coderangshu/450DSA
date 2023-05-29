@@ -19,6 +19,11 @@ void printLL(Node *head){
     cout<<endl;
 }
 
+// Question
+// Given a Circular Linked List of size N. The task is to delete the given node
+// (excluding the first and last node) in the circular linked list and then print
+// the reverse of the circular linked list.
+
 Node* deleteNode(Node *head, int delKey){
 	if(!head) return head;
 	auto cur = head;

@@ -37,6 +37,8 @@ class Solution{
             tortoise = tortoise->next;
         }
         prev->next = nullptr;
+        // If doubly linked list then uncomment below line rest all functions same
+        // tortoise->prev = nullptr;
         return tortoise;
     }
     
@@ -47,12 +49,14 @@ class Solution{
         else if(!second) return first;
         if(first->data<=second->data){
             first->next = merge(first->next,second);
-            // If doubly linked list then activate the below 2 lines rest all functions same
+            // If doubly linked list then uncomment below line rest all functions same
+            // if(first->next) first->next->prev = first;
             return first;
         }
         else{
             second->next = merge(first,second->next);
-            // If doubly linked list then activate the below 2 lines rest all functions same
+            // If doubly linked list then uncomment below line rest all functions same
+            // if(second->next) second->next->prev = second;
             return second;
         }
     }

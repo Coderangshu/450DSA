@@ -102,26 +102,6 @@ struct Node
 Node* reverseDLL(Node * head)
 {
     //Your code here
-    Node *pre = head->prev, *current = head;
-    
-    while (current!=NULL)
-    {
-        pre = current->prev;
-        current->prev = current->next;
-        current->next = pre;            
-        current = current->prev;
-    }
-    
-    // If list is not empty or only has one node then we
-    // change the head
-    if(pre!=NULL) head = pre->prev;
-    return head;
-}
-
-// Another way of writing
-Node* reverseDLL1(Node * head)
-{
-    //Your code here
     auto cur = head;
     Node *prv = nullptr;
     while(cur){
@@ -129,7 +109,7 @@ Node* reverseDLL1(Node * head)
         cur->next = cur->prev;
         cur->prev = temp;
         prv = cur;
-        cur = cur->prev;
+        cur = temp;
     }
     return prv;
 }

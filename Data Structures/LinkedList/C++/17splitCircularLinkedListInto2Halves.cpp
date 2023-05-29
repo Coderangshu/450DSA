@@ -93,6 +93,12 @@ struct Node
 };
 */
 
+// QUESTION
+// Given a Cirular Linked List of size N, split it into two halves circular lists.
+// If there are odd number of nodes in the given circular linked list then out of
+// the resulting two halved lists, first list should have one node more than the
+// second list. The resultant lists should also be circular lists and not linear lists.
+
 //  function which splits the circular linked list.  head is pointer
 // to head Node of given lined list.  head1_ref1 and *head_ref2
 // are pointers to head pointers of resultant two halves.
