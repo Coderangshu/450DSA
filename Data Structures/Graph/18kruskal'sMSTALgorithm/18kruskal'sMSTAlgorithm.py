@@ -1,35 +1,38 @@
 from functools import cmp_to_key
 
-# Edge class for storing the Edges of thee graph
-class Edge:
-    def __init__(self, start, end, weight) :
+class findUnion:
+    def __init__(self, numberOfNodes: int) -> None:
+        self.parent = [i for i in range(numberOfNodes)]
+        self.rank = [1 for i in range(numberOfNodes)]
 
-        self.start = start
-        self.end = end
-        self.weigth = weight
-
-def minimumSpanningTree(edges, V, E):
-    parent,rank = [i for i in range(V)],[1 for i in range(V)]
-    
-    def find(n):
-        if parent[n]==n: return n
-        parent[n] = find(parent[n])
-        return parent[n]
+    def find(self,n):
+        if self.parent[n]==n: return n
+        self.parent[n] = self.find(self.parent[n])
+        return self.parent[n]
 
     # Return True if union is done else return False
-    def union(a,b):
-        pa,pb = find(a),find(b)
+    def union(self,a,b):
+        pa,pb = self.find(a),self.find(b)
         if pa==pb: return False
-        if rank[pa]>rank[pb]: parent[pb] = pa
-        elif rank[pb]>rank[pa]: parent[pa] = pb
+        if self.rank[pa]>self.rank[pb]: self.parent[pb] = pa
+        elif self.rank[pb]>self.rank[pa]: self.parent[pa] = pb
         else:
-            parent[pb] = pa
-            rank[pa] += 1
+            self.parent[pb] = pa
+            self.rank[pa] += 1
         return True
+    
+# Edge class for storing the Edges of thee graph
+class Edge:
+    def __init__(self, start, end, weight):
+        self.start = start
+        self.end = end
+        self.weight = weight
 
-    # sort w.r.t. weigth of edges in increasing order
-    edges = sorted(edges,key=cmp_to_key(lambda a,b: a.weigth-b.weigth))
+def minimumSpanningTree(edges: list[Edge], V: int) -> int:
+    # sort w.r.t. weight of edges in increasing order
+    edges = sorted(edges,key=cmp_to_key(lambda a,b: a.weight-b.weight))
     ans = 0
+    fu = findUnion(V)
     for edge in edges:
-        if union(edge.start,edge.end): ans += edge.weigth
+        if fu.union(edge.start,edge.end): ans += edge.weight
     return ans

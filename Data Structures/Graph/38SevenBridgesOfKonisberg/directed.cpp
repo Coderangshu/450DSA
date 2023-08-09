@@ -1,3 +1,23 @@
+// Eulerian Path:    All edges travelled only once, and starting and ending nodes are different
+// Eulerian Circuit: All edges travelled only once, and starting and ending nodes are same
+
+// 4 flavours of Eulerian path/circuit:
+
+
+//                   |             Eulerian Path            |             Eulerian Circuit
+// ---------------------------------------------------------------------------------------------------
+// Undirected Graph  | Every vertex has even degree         | Every vertex has even degree or exactly
+//                   |                                      | 2 vertices with odd degree, this 2 will
+//                   |                                      | be the starting and ending of the path
+//----------------------------------------------------------------------------------------------------
+// Directed Graph    | Every vertex has equal inDegree and  | Atmost 1 vertex has outDegree-inDegree=1
+//                   | outDegree                            | and atmost 1 with inDegree-outDegree=1
+//                   |                                      | rest all must have equal number of 
+//                   |                                      | inDegree and outDegree
+
+// To understand better : https://youtu.be/xR4sGgwtR2I (Eularian Path Theory)
+//                        https://youtu.be/8MpoO2zA2l4 (Eularian Path finding using modified DFS)
+
 #include<bits/stdc++.h>
 using namespace std;
 

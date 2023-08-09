@@ -1,8 +1,7 @@
 from queue import PriorityQueue
 
 # Edge class for storing the Edges of thee graph
-class Edge:
-    
+class Edge:  
     def __init__(self, start, end, weight) :
 
         self.start = start
@@ -10,7 +9,7 @@ class Edge:
         self.weigth = weight
 
 
-def minimumSpanningTree(edges, V, E):
+def minimumSpanningTree(edges, V):
     adj = [[] for i in range(V)]
     for edge in edges:
         adj[edge.start].append((edge.end,edge.weigth))

@@ -1,6 +1,6 @@
 class Solution:
-    def isNegativeWeightCycle(self, n, edges):
-        if n==0 or len(edges)==0: return 0
+    def isNegativeWeightCycle(self, n: int, edges: list[list[int]]) -> bool:
+        if n==0 or len(edges)==0: return False
         distance = [float("inf")]*n
         distance[edges[0][0]] = 0
         
@@ -12,4 +12,4 @@ class Solution:
         for i in range(n-1): oneTraversal()
         nextDistance = [i for i in distance]
         oneTraversal()
-        return 0 if distance==nextDistance else 1
+        return False if distance==nextDistance else True
